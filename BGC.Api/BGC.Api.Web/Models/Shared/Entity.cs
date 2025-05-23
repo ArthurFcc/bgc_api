@@ -1,7 +1,7 @@
 namespace BGC.Api.Web.Models;
 
-public class Entity<T>
+public class Entity
 {
-    public required T Id { get; set; }
+    public uint Id { get; set; }
     public DateTime CreationTime { get; set; }
 }

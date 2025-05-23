@@ -6,7 +6,7 @@ public enum Genre
     Strategy = 1,
     Party = 2,
     Family = 4,
-    Wargames = 8,
+    WarGames = 8,
     Abstract = 16,
     Deckbuilding = 32,
     WorkerPlacement = 64,

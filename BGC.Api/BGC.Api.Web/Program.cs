@@ -1,3 +1,5 @@
+using BGC.Api.Web.Data;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 namespace BGC.Api.Web;
@@ -9,7 +11,11 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
-
+        builder.Services.AddDbContext<BGCDbContext>(options => 
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+        );
+        
+        
         var app = builder.Build();
 
         app.MapOpenApi();
