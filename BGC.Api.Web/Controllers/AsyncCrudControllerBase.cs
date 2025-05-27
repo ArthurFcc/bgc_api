@@ -1,18 +1,19 @@
-﻿using BGC.Api.Web.Models.Shared;
+﻿using BGC.Api.Web.Data;
+using BGC.Api.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BGC.Api.Web.Controllers
 {
-    public class AsyncCrudControllerBase<TEntity>(IEnumerable<TEntity> entities) : ControllerBase
+    public class AsyncCrudControllerBase<TEntity>(IRepository<TEntity> repository) : ControllerBase
         where TEntity : Entity
     {
-        /*
-         * private readonly IRepository<TEntity> _repository;      
-         */
+        private readonly IRepository<TEntity> _repository = repository;
 
         [HttpGet]
         public virtual async Task<ActionResult<IEnumerable<TEntity>>> GetAll()
         {
+            var entities = await _repository.GetAllAsync();
             return Ok(entities);
         }
 
@@ -21,7 +22,7 @@ namespace BGC.Api.Web.Controllers
         {
             try
             {
-                var result = entities.FirstOrDefault(x => x.Id == id);
+                var result = _repository.GetAsync(id);
                 return Ok(result);
             }
             catch (Exception e)
@@ -35,11 +36,8 @@ namespace BGC.Api.Web.Controllers
         {
             try
             {
-                entity.Id = entities.Max(x => x.Id) + 1;
-                entity.CreationTime = DateTime.Now;
-
-                var items = entities.Append(entity);
-                return Ok(entity);
+                var newEntity = await _repository.CreateAsync(entity);
+                return Ok(newEntity);
             }
             catch (Exception e)
             {
@@ -50,19 +48,15 @@ namespace BGC.Api.Web.Controllers
         [HttpPut]
         public virtual async Task<ActionResult<TEntity>> Update(TEntity entity)
         {
-            var entityToUpdate = entities.FirstOrDefault(x => x.Id == entity.Id);
-
-
-
-            return Ok();
+            var updatedEntity = _repository.UpdateAsync(entity);
+            return Ok(updatedEntity);
         }
 
         [HttpDelete("{id}")]
         public virtual async Task<ActionResult<bool>> Delete(uint id)
         {
-            entities.Except([ entities.FirstOrDefault(x => x.Id == id) ]);
-
-            return Ok(true);
+            var result = await _repository.DeleteAsync(id);
+            return Ok(result);
         }
     }
 }

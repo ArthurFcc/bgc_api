@@ -1,5 +1,7 @@
 
 using BGC.Api.Web.Data;
+using BGC.Api.Web.Models.Boardgames;
+using BGC.Api.Web.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -15,6 +17,8 @@ namespace BGC.Api.Web
             builder.Services.AddDbContext<BGCDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            builder.Services.AddScoped<IRepository<Boardgame>, Repository<Boardgame>>();
 
             var app = builder.Build();
 

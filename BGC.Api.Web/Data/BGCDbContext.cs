@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BGC.Api.Web.Models.Boardgames;
 using Microsoft.EntityFrameworkCore;
 
 namespace BGC.Api.Web.Data
