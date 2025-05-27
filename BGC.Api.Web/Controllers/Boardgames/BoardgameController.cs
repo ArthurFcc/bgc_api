@@ -1,14 +1,14 @@
 using BGC.Api.Web.Models.Boardgames;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BGC.Api.Web.Controllers.Boardgames;
-
-[ApiController]
-[Route("api/boardgame/[action]")]
-public class BoardgameController : AsyncCrudControllerBase<Boardgame>
+namespace BGC.Api.Web.Controllers.Boardgames
 {
-    private static readonly IEnumerable<Boardgame> BoardGames = [
-        new()
+    [ApiController]
+    [Route("api/boardgame/[action]")]
+    public class BoardgameController : AsyncCrudControllerBase<Boardgame>
+    {
+        private static readonly IEnumerable<Boardgame> BoardGames = [
+            new()
         {
             Id = 1,
             Name = "Massive Darkness 2",
@@ -45,9 +45,10 @@ public class BoardgameController : AsyncCrudControllerBase<Boardgame>
             Genre = Genre.Family
         },
     ];
-    
-    public BoardgameController() : base(BoardGames)
-    {
-        
+
+        public BoardgameController() : base(BoardGames)
+        {
+
+        }
     }
 }
