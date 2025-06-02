@@ -33,6 +33,7 @@ namespace BGC.Api.Web
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+            app.UseCors("*");
             app.Run();
         }
     }
