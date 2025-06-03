@@ -9,5 +9,17 @@ namespace BGC.Api.Web.Data
     {
         public DbSet<Boardgame> Boardgames { get; set; }
         public DbSet<Collection> Collections { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("BGC");
+
+            modelBuilder.Entity<Collection>()
+                .HasMany(x => x.Boardgames)
+                .WithMany()
+                .UsingEntity(x => x.ToTable("BoardgameCollection"));
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

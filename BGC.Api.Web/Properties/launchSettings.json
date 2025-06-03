@@ -14,7 +14,9 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://192.168.0.217:44311/"
+      "applicationUrl": "https://192.168.0.217:44311/",
+      "launchBrowser": true,
+      "launchUrl": "https://192.168.0.217:44311/scalar/v1"
     },
     "IIS Express": {
       "commandName": "IISExpress",
