@@ -27,6 +27,7 @@ namespace BGC.Api.Web.Data
 
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
+            entity.LastUpdateTime = DateTime.Now;
             var updatedEntity = _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
 

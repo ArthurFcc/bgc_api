@@ -2,12 +2,16 @@
 using BGC.Api.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Nelibur.ObjectMapper;
 using Scalar.AspNetCore;
 
 namespace BGC.Api.Web.Controllers
 {
-    public class AsyncCrudControllerBase<TEntity>(IRepository<TEntity> repository) : ControllerBase
+    public abstract class AsyncCrudControllerBase<TEntity, TCreateEntity, TGetEntity>(IRepository<TEntity> repository) : ControllerBase, 
+        IAsyncCrudControllerBase<TEntity, TCreateEntity, TGetEntity>
         where TEntity : Entity
+        where TCreateEntity : Entity
+        where TGetEntity : Entity
     {
         private readonly IRepository<TEntity> _repository = repository;
 
@@ -33,11 +37,12 @@ namespace BGC.Api.Web.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<ActionResult<TEntity>> Create(TEntity entity)
+        public virtual async Task<ActionResult<TEntity>> Create(TCreateEntity entity)
         {
             try
             {
-                var newEntity = await _repository.CreateAsync(entity);
+                var mappedEntity = MapToEntity(entity);
+                var newEntity = await _repository.CreateAsync(mappedEntity);
                 return Ok(newEntity);
             }
             catch (Exception e)
@@ -59,5 +64,7 @@ namespace BGC.Api.Web.Controllers
             var result = await _repository.DeleteAsync(id);
             return Ok(result);
         }
+
+        public TEntity MapToEntity<T>(T entity) => TinyMapper.Map<TEntity>(entity);
     }
 }

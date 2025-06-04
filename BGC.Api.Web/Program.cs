@@ -1,9 +1,6 @@
-
-using BGC.Api.Web.Controllers.Boardgames;
 using BGC.Api.Web.Data;
 using BGC.Api.Web.Models.Boardgames;
 using BGC.Api.Web.Models.Collections;
-using BGC.Api.Web.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -36,7 +33,7 @@ namespace BGC.Api.Web
                 options.Theme = ScalarTheme.DeepSpace;
                 options.Title = "BGC | Boardgame Collector API";
             });
-            
+
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

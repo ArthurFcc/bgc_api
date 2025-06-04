@@ -9,6 +9,7 @@ namespace BGC.Api.Web.Data
     {
         public DbSet<Boardgame> Boardgames { get; set; }
         public DbSet<Collection> Collections { get; set; }
+        public DbSet<BoardgameCollection> BoardgameCollection { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
