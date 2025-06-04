@@ -1,4 +1,5 @@
 ﻿using BGC.Api.Web.Data;
+using BGC.Api.Web.Models.Boardgames;
 using BGC.Api.Web.Models.Collections;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,7 @@
 using BGC.Api.Web.Data;
 using BGC.Api.Web.Models.Boardgames;
 using Microsoft.AspNetCore.Mvc;
+using Scalar.AspNetCore;
 
 namespace BGC.Api.Web.Controllers.Boardgames
 {
@@ -9,5 +10,8 @@ namespace BGC.Api.Web.Controllers.Boardgames
     public class BoardgameController(IRepository<Boardgame> repository) 
         : AsyncCrudControllerBase<Boardgame>(repository)
     {
+        [ExcludeFromApiReference]
+        public override Task<ActionResult<bool>> Delete(uint id) => base.Delete(id);
+        
     }
 }

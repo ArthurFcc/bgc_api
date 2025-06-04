@@ -2,6 +2,7 @@
 using BGC.Api.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 namespace BGC.Api.Web.Controllers
 {
