@@ -2,10 +2,10 @@
 
 namespace BGC.Api.Web.Models.Collections
 {
-    public class CreateCollection : Entity
+    public class CollectionBase : Entity
     {
         public byte[ ] Cover { get; set; }
-        public required string Name { get; set; }
+        public required string Title { get; set; }
         public required string Description { get; set; }
     }
 }

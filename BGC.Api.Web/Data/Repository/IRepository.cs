@@ -1,6 +1,6 @@
 ﻿using BGC.Api.Web.Models.Shared;
 
-namespace BGC.Api.Web.Data
+namespace BGC.Api.Web.Data.Repository
 {
     public interface IRepository<TEntity>
         where TEntity : Entity

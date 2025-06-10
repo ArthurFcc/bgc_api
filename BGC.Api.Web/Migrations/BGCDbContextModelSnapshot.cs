@@ -42,16 +42,16 @@ namespace BGC.Api.Web.Migrations
                     b.Property<int>("Genre")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("LastUpdateTime")
+                    b.Property<DateTime?>("LastUpdateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("ReleaseYear")
                         .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -77,10 +77,10 @@ namespace BGC.Api.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("LastUpdateTime")
+                    b.Property<DateTime?>("LastUpdateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -94,12 +94,12 @@ namespace BGC.Api.Web.Migrations
                     b.Property<long>("BoardgamesId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CollectionId")
+                    b.Property<long>("CollectionsId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("BoardgamesId", "CollectionId");
+                    b.HasKey("BoardgamesId", "CollectionsId");
 
-                    b.HasIndex("CollectionId");
+                    b.HasIndex("CollectionsId");
 
                     b.ToTable("BoardgameCollection", "BGC");
                 });
@@ -114,7 +114,7 @@ namespace BGC.Api.Web.Migrations
 
                     b.HasOne("BGC.Api.Web.Models.Collections.Collection", null)
                         .WithMany()
-                        .HasForeignKey("CollectionId")
+                        .HasForeignKey("CollectionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

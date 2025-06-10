@@ -1,8 +1,7 @@
-﻿
-using BGC.Api.Web.Models.Shared;
+﻿using BGC.Api.Web.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace BGC.Api.Web.Data
+namespace BGC.Api.Web.Data.Repository
 {
     public class Repository<TEntity>(BGCDbContext context) : IRepository<TEntity>
         where TEntity : Entity

@@ -6,12 +6,8 @@ namespace BGC.Api.Web.Controllers.Collections
 {
     [ApiController]
     [Route("api/collection/[action]")]
-    public class CollectionController(IRepository<Collection> repository)
-        : AsyncCrudControllerBase<Collection, CreateCollection, Collection>(repository)
+    public class CollectionController(BGCDbContext dbContext)
+        : AsyncCrudControllerBase<Collection, CollectionBase, GetCollection>(dbContext)
     {
-        public async Task AddBoardgamesToCollection(IEnumerable<BoardgameCollection> boardgames)
-        {
-
-        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using BGC.Api.Web.Models.Boardgames;
+﻿using BGC.Api.Web.Models.Boardgames;
 using BGC.Api.Web.Models.Collections;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +8,11 @@ namespace BGC.Api.Web.Data
     {
         public DbSet<Boardgame> Boardgames { get; set; }
         public DbSet<Collection> Collections { get; set; }
-        public DbSet<BoardgameCollection> BoardgameCollection { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,8 +20,7 @@ namespace BGC.Api.Web.Data
 
             modelBuilder.Entity<Collection>()
                 .HasMany(x => x.Boardgames)
-                .WithMany()
-                .UsingEntity(x => x.ToTable("BoardgameCollection"));
+                .WithMany(x => x.Collections);
 
             base.OnModelCreating(modelBuilder);
         }

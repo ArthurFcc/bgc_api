@@ -7,8 +7,8 @@ namespace BGC.Api.Web.Controllers.Boardgames
 {
     [ApiController]
     [Route("api/boardgame/[action]")]
-    public class BoardgameController(IRepository<Boardgame> repository)
-        : AsyncCrudControllerBase<Boardgame, Boardgame, Boardgame>(repository)
+    public class BoardgameController(BGCDbContext dbContext)
+        : AsyncCrudControllerBase<Boardgame, Boardgame, Boardgame>(dbContext)
     {
         [ExcludeFromApiReference]
         public override Task<ActionResult<bool>> Delete(uint id) => base.Delete(id);
