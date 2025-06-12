@@ -1,14 +1,14 @@
 ﻿using BGC.Api.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BGC.Api.Web.Controllers
+namespace BGC.Api.Web.Controllers.AsyncCrudController
 {
-    public interface IAsyncCrudControllerBase<TEntity, TCreateEntity, TGetAllEntity>
+    public interface IAsyncCrudController<TEntity, TCreateEntity, TGetAllEntity>
         where TEntity : Entity
         where TGetAllEntity : Entity
         where TCreateEntity : Entity
     {
-        Task<ActionResult<IEnumerable<TGetAllEntity>>> GetAll();
+        ActionResult<PagedResult<TGetAllEntity>> GetAll(PagedRequest input);
         Task<ActionResult<TEntity>> GetById(uint id);
         Task<ActionResult<TEntity>> Create(TCreateEntity entity);
         Task<ActionResult<TEntity>> Update(TEntity entity);

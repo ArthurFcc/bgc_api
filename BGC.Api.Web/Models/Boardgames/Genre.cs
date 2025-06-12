@@ -3,13 +3,11 @@
     [Flags]
     public enum Genre
     {
-        Strategy = 1,
-        Party = 2,
-        Family = 4,
-        WarGames = 8,
-        Abstract = 16,
-        Deckbuilding = 32,
-        WorkerPlacement = 64,
-        DungeonCrawlers = 128,
+        Children = 1,
+        Family = 2,
+        Party = 4,
+        Strategy = 8,
+        Thematic = 16,
+        WarGames = 32,
     }
 }

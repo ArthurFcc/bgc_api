@@ -2,23 +2,29 @@
 using BGC.Api.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Nelibur.ObjectMapper;
 
-namespace BGC.Api.Web.Controllers
+namespace BGC.Api.Web.Controllers.AsyncCrudController
 {
-    public abstract class AsyncCrudControllerBase<TEntity, TCreateEntity, TGetAllEntity>(BGCDbContext context) : ControllerBase,
-        IAsyncCrudControllerBase<TEntity, TCreateEntity, TGetAllEntity>
-        where TEntity : Entity
-        where TCreateEntity : Entity
-        where TGetAllEntity : Entity
+    public abstract class AsyncCrudController<TEntity, TCreateEntity, TGetAllEntity>(BGCDbContext context)
+        : AsyncCrudControllerBase<TEntity>(context),
+        IAsyncCrudController<TEntity, TCreateEntity, TGetAllEntity>
+            where TEntity : Entity
+            where TCreateEntity : Entity
+            where TGetAllEntity : Entity
     {
-        public readonly BGCDbContext Context = context;
-
         [HttpGet]
-        public virtual async Task<ActionResult<IEnumerable<TGetAllEntity>>> GetAll()
+        public virtual ActionResult<PagedResult<TGetAllEntity>> GetAll([FromQuery] PagedRequest input)
         {
-            var entities = await Context.Set<TEntity>().ToListAsync();
-            return Ok(entities);
+            var query = CreateFilteredQuery(input);
+
+            var totalCount = query.Count();
+
+            query = ApplySorting(query);
+            query = ApplyPaging(query, input);
+
+            var entities = query.ToList();
+
+            return Ok(new PagedResult<TEntity>(totalCount, entities));
         }
 
         [HttpGet("{id}")]
@@ -73,7 +79,5 @@ namespace BGC.Api.Web.Controllers
             }
             return Problem("Entity not found to delete");
         }
-
-        public TEntity MapToEntity<T>(T entity) => TinyMapper.Map<TEntity>(entity);
     }
 }
